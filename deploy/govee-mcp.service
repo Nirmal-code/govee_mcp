@@ -1,0 +1,24 @@
+[Unit]
+Description=Govee MCP server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=govee
+Group=govee
+WorkingDirectory=/opt/govee-mcp
+EnvironmentFile=/etc/govee-mcp.env
+Environment=GOVEE_MCP_STATE=/var/lib/govee-mcp/oauth.json
+ExecStart=/opt/govee-mcp/.venv/bin/govee-mcp
+Restart=on-failure
+RestartSec=3
+
+StateDirectory=govee-mcp
+StateDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
